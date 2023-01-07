@@ -1,26 +1,21 @@
 <div class="container">
     <div class="row">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h2 class="lead">Common</h2>
-                <button class="btn btn-lg btn-outline-primary">Checkout</button>
-                <button class="btn btn-lg btn-outline-primary">Receive</button>
+                <button class="btn btn-lg btn-outline-primary" (click)="openView(checkoutModal, 'lg'); activeTransactionType = 0;">Checkout</button>
+                <button class="btn btn-lg btn-outline-primary" (click)="openView(checkoutModal, 'lg'); activeTransactionType = 1;">Receive</button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h2 class="lead">Lists</h2>
                 <button class="btn btn-lg btn-outline-primary" disabled>Item List</button>
                 <button class="btn btn-lg btn-outline-primary" disabled>User List</button>
-            </div>
-            <div class="col-md-4">
-                <h2 class="lead">Reports</h2>
-                <button class="btn btn-lg btn-outline-primary">Checkout Report</button>
-                <button class="btn btn-lg btn-outline-primary">Receiving Report</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- <ng-template #checkoutModal let-modal>
+<ng-template #checkoutModal let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Perform Transaction</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); cancelCheckout()"></button>
@@ -74,33 +69,3 @@
         <button type="button" class="btn btn-success" (click)="performTransaction(activeTransactionType, transactionNote); modal.close('Close click')">Finish Transaction</button>
     </div>
 </ng-template>
-
-<ng-template #transactionsReport let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">View all {{ activeListType == 1 ? "checkout" : "receive" }} transactions</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click');"></button>
-    </div>
-    <div class="modal-body">
-        <div [hidden]="downloadedTransactions.length == 0">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Note</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let item of downloadedTransactions; index as i">
-                        <th scope="row">{{ downloadedTransactions[i].transaction_id }}</th>
-                        <th scope="row">{{ downloadedTransactions[i].note }}</th>
-                        <th scope="row">{{ downloadedTransactions[i].date }}</th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="modal.close('Close click')">Close</button>
-    </div>
-</ng-template> -->
