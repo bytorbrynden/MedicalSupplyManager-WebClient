@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="lead">Common</h2>
+                <button class="btn btn-lg btn-outline-primary">Checkout</button>
+                <button class="btn btn-lg btn-outline-primary">Receive</button>
+            </div>
+            <div class="col-md-4">
+                <h2 class="lead">Lists</h2>
+                <button class="btn btn-lg btn-outline-primary" disabled>Item List</button>
+                <button class="btn btn-lg btn-outline-primary" disabled>User List</button>
+            </div>
+            <div class="col-md-4">
+                <h2 class="lead">Reports</h2>
+                <button class="btn btn-lg btn-outline-primary">Checkout Report</button>
+                <button class="btn btn-lg btn-outline-primary">Receiving Report</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <ng-template #checkoutModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Perform Transaction</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); cancelCheckout()"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row mb-3">
+                <label for="transactionProductCode" class="col-sm-2 col-form-label">Product Code</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="transactionProductCode" [(ngModel)]="transactionProductCode">
+                </div>
+                <div class="col-sm-2">
+                    <input type="number" class="form-control" name="transactionProductQty" placeholder="Qty" [(ngModel)]="transactionProductQty" [defaultValue]="1">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="addItemToCheckoutTrans(transactionProductCode, transactionProductQty); transactionProductCode = ''; transactionProductQty = 1;" [disabled]="transactionProductCode.length == 0 || transactionProductQty == null">Add to transaction</button>
+        </form>
+        <div [hidden]="currentTransactionItems.length == 0">
+            <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Transaction Index</th>
+                        <th scope="col">Product Code</th>
+                        <th scope="col">On Hand Quantity</th>
+                        <th scope="col">Transaction Stock</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of currentTransactionItems; index as i">
+                        <th scope="row">{{ i }}</th>
+                        <th scope="row">{{ (currentTransactionItems[i]).productCode }}</th>
+                        <th scope="row">N/A</th>
+                        <th scope="row">{{ (currentTransactionItems[i]).productQty }}</th>
+                        <th scope="row">
+                            <button class="btn btn-sm btn-warning" disabled><i class="bi bi-pencil-square"></i></button>
+                            <button class="btn btn-sm btn-danger" (click)="removeItemFromCheckoutTrans(i)"><i class="bi bi-trash3"></i></button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <hr>
+            <div class="form-group">
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Please add a note to your transaction." [(ngModel)]="transactionNote"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('Close click'); cancelCheckout()">Cancel Transaction</button>
+        <button type="button" class="btn btn-success" (click)="performTransaction(activeTransactionType, transactionNote); modal.close('Close click')">Finish Transaction</button>
+    </div>
+</ng-template>
+
+<ng-template #transactionsReport let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">View all {{ activeListType == 1 ? "checkout" : "receive" }} transactions</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click');"></button>
+    </div>
+    <div class="modal-body">
+        <div [hidden]="downloadedTransactions.length == 0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Note</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of downloadedTransactions; index as i">
+                        <th scope="row">{{ downloadedTransactions[i].transaction_id }}</th>
+                        <th scope="row">{{ downloadedTransactions[i].note }}</th>
+                        <th scope="row">{{ downloadedTransactions[i].date }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('Close click')">Close</button>
+    </div>
+</ng-template> -->
