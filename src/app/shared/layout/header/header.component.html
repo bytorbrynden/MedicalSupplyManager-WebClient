@@ -1,6 +1,13 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Medical Supply Manager</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-</nav>
+<div class="sidebar flex">
+    <div class="sidebar-title">
+        Medical Supply Manager
+    </div>
+    <ul class="sidebar-nav text-dark">
+        <li class="sidebar-nav-item" routerLinkActive="active">
+            <a routerLink="/dashboard"><span class="bi bi-house"></span> Dashboard</a>
+        </li>
+        <li class="sidebar-nav-item" routerLinkActive="active">
+            <a routerLink="/reports"><span class="bi bi-table"></span> Reports</a>
+        </li>
+    </ul>
+</div>

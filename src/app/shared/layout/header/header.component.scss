@@ -1,0 +1,44 @@
+.sidebar {
+    height: 100%;
+    width: 160px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: lightgrey;
+    overflow-x: hidden;
+    padding-top: 10px;
+
+    .sidebar-title {
+        text-align: center;
+        height: auto;
+        width: 160px;
+        padding-bottom: 10px;
+    }
+
+    .sidebar-nav {
+        list-style: none;
+        position: fixed;
+        width: 160px;
+        left: 0;
+        padding: 0;
+
+        .sidebar-nav-item {
+            display: box;
+            padding: 10px;
+
+            a {
+                text-decoration: none;
+                color: black;
+            }
+        }
+
+        .sidebar-nav-item:hover {
+            background-color: lighten($color: lightgrey, $amount: 10);
+        }
+
+        .sidebar-nav-item.active {
+            background-color: darkgray;
+        }
+    }
+}
