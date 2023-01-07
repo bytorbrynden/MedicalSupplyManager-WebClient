@@ -6,11 +6,13 @@ import { ReportsComponent } from './views/reports/reports.component';
 const routes: Routes = [
     {
         path: "dashboard",
-        component: DashboardComponent
+        component: DashboardComponent,
+        title: "Dashboard | Medical Supply Manager"
     },
     {
         path: "reports",
-        component: ReportsComponent
+        component: ReportsComponent,
+        title: "Reports | Medical Supply Manager"
     }
 ];
 
