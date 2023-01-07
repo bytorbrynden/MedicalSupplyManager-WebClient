@@ -1,0 +1,60 @@
+<div class="container">
+    <h1>Reports</h1>
+    <hr>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Transaction ID</th>
+                <th scope="col">Transaction Type</th>
+                <th scope="col">Performed by</th>
+                <th scope="col">Note</th>
+                <th scope="col">Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of sortedTransactions | keyvalue;">
+                <th scope="row">{{ transaction.key }}</th>
+                <th scope="row">{{ (extract(transaction.value).type == 0) ? "Checkout" : "Receive" }}</th>
+                <th scope="row">{{ extract(transaction.value).adminId }}</th>
+                <th scope="row">{{ extract(transaction.value).note }}</th>
+                <th scope="row">{{ extract(transaction.value).date }}</th>
+                <th scope="row"><button class="btn btn-sm btn-primary" (click)="inspectTransaction(transaction.value, inspectModal)"><span class="bi-eye"></span></button></th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #inspectModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">View Transaction: {{ currentlySelectedTransaction.transactionId }}</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click');"></button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-info" role="alert">
+            <strong>{{ currentlySelectedTransaction.adminId }}</strong> performed this <em>{{ currentlySelectedTransaction.type == 0 ? "checkout" : "receive" }}</em>
+            transaction on <strong>{{ currentlySelectedTransaction.date }}</strong> with note "{{ currentlySelectedTransaction.note }}."
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Product Id</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Transaction Quantity</th>
+                    <th scope="col">New On Hand Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of currentlySelectedTransaction.items; index as i">
+                    <th scope="row">{{ currentlySelectedTransaction.items[i].product_id }}</th>
+                    <th scope="row">{{ currentlySelectedTransaction.items[i].product_name }}</th>
+                    <th scope="row">{{ currentlySelectedTransaction.items[i].qty_change }}</th>
+                    <th scope="row">{{ currentlySelectedTransaction.items[i].new_qty }}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="modal.close('Close click')">Done</button>
+    </div>
+</ng-template>
