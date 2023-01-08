@@ -28,6 +28,8 @@ export class DashboardComponent {
     currentTransactionItems: any[] = [ ];
     receiveTransactionItems: any[]  = [ ];
 
+    productNotExistErr: boolean = false;
+
     transactionProductCode: string = "";
     transactionProductQty: number = 1;
     transactionNote: string = "";
@@ -50,33 +52,66 @@ export class DashboardComponent {
         this.receiveTransactionItems = [ ];
     }
 
-    addItemToCheckoutTrans(productCode: string, productQty: number) {
-        if (productCode != "" && productQty != null)
-            this.currentTransactionItems.push(this.TransactionItem(productCode, productQty));
+    async doesProductExist(productTag: string): Promise<boolean> {
+        var product: any = await this.http.get("http://localhost:8000/products/productByTag/" + productTag).toPromise();
+
+        return (product.length > 0);
+    }
+
+    async getProduct(productTag: string): Promise<any> {
+        return await this.http.get("http://localhost:8000/products/productByTag/" + productTag).toPromise();
+    }
+
+    transactionHasItem(productCode: string) {
+        for (var i = 0; i < this.currentTransactionItems.length; i++) {
+            if (this.currentTransactionItems[i].productCode == productCode)
+                return i;
+        }
+
+        return -1;
+    }
+
+    async addItemToCheckoutTrans(productCode: string, productQty: number) {
+        if (productCode != "" && productQty != null) {
+            if ((await this.getProduct(productCode)).length > 0) {
+                var transactionIndex = this.transactionHasItem(productCode);
+
+                if (transactionIndex == -1) {
+                    this.currentTransactionItems.push(this.TransactionItem(productCode, productQty));
+                } else {
+                    this.currentTransactionItems[transactionIndex].productQty += productQty;
+                }
+
+                this.transactionProductCode = "";
+                this.transactionProductQty = 1;
+                this.productNotExistErr = false;
+            } else {
+                this.productNotExistErr = true;
+            }
+        }
     }
 
     removeItemFromCheckoutTrans(index: number) {
         this.currentTransactionItems.splice(index, 1);
     }
 
-    performTransaction(type: number, note: string) {
+    async performTransaction(type: number, note: string) {
         let transactionId = Date.now();
         let transactionDate = (new Date());
 
         for (var i = 0; i < this.currentTransactionItems.length; i++) {
             var currItem = this.currentTransactionItems[i];
+            var product  = (await this.getProduct(currItem.productCode))[0];
 
             this.http.post("http://localhost:8000/transactions/new", {
                 transaction_id: transactionId,
                 t_type: type,
-                admin_id: 0,
-                product_id: currItem.productCode,
+                admin_id: "admin",
+                product_id: product.product_id,
                 qty_change: currItem.productQty,
                 note: note,
                 date: transactionDate
-            }).subscribe((data) => {
-                console.log(data);
-            });
+            }).subscribe((data) => { });
         }
 
         this.currentTransactionItems = [ ];

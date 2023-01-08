@@ -22,6 +22,7 @@
     </div>
     <div class="modal-body">
         <form>
+            <div class="alert alert-danger" *ngIf="productNotExistErr">Product doesn't exist!</div>
             <div class="row mb-3">
                 <label for="transactionProductCode" class="col-sm-2 col-form-label">Product Code</label>
                 <div class="col-sm-8">
@@ -31,7 +32,7 @@
                     <input type="number" class="form-control" name="transactionProductQty" placeholder="Qty" [(ngModel)]="transactionProductQty" [defaultValue]="1">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary" (click)="addItemToCheckoutTrans(transactionProductCode, transactionProductQty); transactionProductCode = ''; transactionProductQty = 1;" [disabled]="transactionProductCode.length == 0 || transactionProductQty == null">Add to transaction</button>
+            <button type="submit" class="btn btn-primary" (click)="addItemToCheckoutTrans(transactionProductCode, transactionProductQty);" [disabled]="transactionProductCode.length == 0 || transactionProductQty == null">Add to transaction</button>
         </form>
         <div [hidden]="currentTransactionItems.length == 0">
             <hr>
