@@ -1,13 +1,18 @@
-<div class="sidebar flex">
-    <div class="sidebar-title">
-        Medical Supply Manager
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Medical Supply Manager</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/reports" routerLinkActive="active">Reports</a>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul class="sidebar-nav text-dark">
-        <li class="sidebar-nav-item" routerLinkActive="active">
-            <a routerLink="/dashboard"><span class="bi bi-house"></span> Dashboard</a>
-        </li>
-        <li class="sidebar-nav-item" routerLinkActive="active">
-            <a routerLink="/reports"><span class="bi bi-table"></span> Reports</a>
-        </li>
-    </ul>
-</div>
+</nav>
