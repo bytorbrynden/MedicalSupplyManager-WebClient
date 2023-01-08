@@ -1,0 +1,69 @@
+<div class="container">
+    <button class="btn btn-success" style="width: 100%" (click)="openView(createModal)">Create new item</button>
+</div>
+<hr>
+<div class="container" *ngIf="downloadedProducts.length > 0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Product ID</th>
+                <th scope="col">Product Tag</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">On Hand</th>
+                <th scope="col">Reorder At</th>
+                <th scope="col">Earliest Expiration</th>
+                <th scope="col">Ordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of downloadedProducts | keyvalue;">
+                <th scope="row">{{ extract(product.value).product_id }}</th>
+                <th scope="row">{{ extract(product.value).product_tag }}</th>
+                <th scope="row">{{ extract(product.value).product_name }}</th>
+                <th scope="row">{{ extract(product.value).product_qty }}</th>
+                <th scope="row">{{ extract(product.value).product_reorder }}</th>
+                <th scope="row">{{ extract(product.value).exp_date }}</th>
+                <th scope="row">{{ (extract(product.value).ordered == 0 ? "No" : "Yes") }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<ng-template #createModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Create Item</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click'); resetItem();"></button>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div class="row">
+                <div class="form-group col-sm-3">
+                    <label for="productTag">Product Tag</label>
+                    <input type="text" class="form-control" id="productTag" name="productTag" placeholder="Enter product tag" [(ngModel)]="productTag">
+                </div>
+                <div class="form-group col-sm-9">
+                    <label for="productName">Product Name</label>
+                    <input type="text" class="form-control" id="productName" name="productName" placeholder="Enter product name" [(ngModel)]="productName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-4">
+                    <label for="productExpiration">Expiration</label>
+                    <input type="date" class="form-control" id="productExpiration" name="productExp" placeholder="" [(ngModel)]="productExp" required>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="productOnHand">Current On Hand</label>
+                    <input type="number" class="form-control" id="productOnHand" name="productOnHand" placeholder="" [(ngModel)]="productOnHand" required>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="productReorder">Reorder At</label>
+                    <input type="number" class="form-control" id="productReorder" name="productReorder" placeholder="" [(ngModel)]="productReorder" required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="modal.close('Close click'); resetItem()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="modal.close('Close click'); createItem()" [disabled]="!validateForm()">Create</button>
+    </div>
+</ng-template>

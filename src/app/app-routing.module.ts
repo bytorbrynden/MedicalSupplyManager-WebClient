@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { ProductsComponent } from './views/products/products.component';
 import { ReportsComponent } from './views/reports/reports.component';
 
 const routes: Routes = [
@@ -13,6 +14,11 @@ const routes: Routes = [
         path: "reports",
         component: ReportsComponent,
         title: "Reports | Medical Supply Manager"
+    },
+    {
+        path: "products",
+        component: ProductsComponent,
+        title: "Products | Medical Supply Manager"
     }
 ];
 
