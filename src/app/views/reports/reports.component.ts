@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -12,13 +12,32 @@ export class ReportsComponent {
     sortedTransactions: any = { };
     currentlySelectedTransaction: any = { };
 
-    showCheckouts = true;
-    showReceives  = true;
+    showCheckouts   = false;
+    showReceives    = false;
+    reportGenerated = false;
 
     constructor(private http: HttpClient, private modalService: NgbModal) { }
 
-    ngOnInit() {
-        this.http.get("http://localhost:8000/transactions/view/all/").subscribe((res: any) => {
+    extract(data: any) {
+        return data;
+    }
+
+    inspectTransaction(transaction: any, modal: any) {
+        this.currentlySelectedTransaction = transaction;
+
+        this.modalService.open(modal, { size: 'lg' });
+    }
+
+    generateReport() {
+        var types = [];
+
+        if (this.showCheckouts) types.push(0);
+        if (this.showReceives) types.push(1, 2);
+
+        this.sortedTransactions = { };
+
+        this.http.get("http://localhost:8000/transactions/view/all/filtered?types=" + types.toString()).subscribe((res: any) => {
+            console.log(res);
             for (var i = 0; i < res.length; i++) {
                 var currTransactionId = res[i].transaction_id;
                 
@@ -36,15 +55,7 @@ export class ReportsComponent {
                 }
             }
         });
-    }
 
-    extract(data: any) {
-        return data;
-    }
-
-    inspectTransaction(transaction: any, modal: any) {
-        this.currentlySelectedTransaction = transaction;
-
-        this.modalService.open(modal, { size: 'lg' });
+        this.reportGenerated = true;
     }
 }
